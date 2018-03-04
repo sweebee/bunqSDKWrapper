@@ -5,6 +5,7 @@ simple wrapper around the bunq SDK
 
 Always create a new instance
 ```php
+use wiebenieuwenhuis\bunqApi\bunqApi;
 $bunq = new bunqApi();
 
 ```
