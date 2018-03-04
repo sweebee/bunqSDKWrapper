@@ -18,9 +18,9 @@ Class bunqApi {
 	/**
 	 * bunqApi constructor.
 	 */
-	public function __construct() {
+	public function __construct($config_file = 'bunq.conf') {
 		// Set the api
-		$this->apiContext = ApiContext::restore(ApiContext::FILENAME_CONFIG_DEFAULT);
+		$this->apiContext = ApiContext::restore($config_file);
 		// Get the userid
 		$users = User::listing($this->apiContext)->getValue();
 		$this->user = $users[0]->getUserPerson();
