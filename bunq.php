@@ -10,6 +10,7 @@ use bunq\Model\Generated\Endpoint\Payment as bunqPayment;
 use bunq\Model\Generated\Object\Pointer;
 use bunq\Model\Generated\Object\NotificationFilter;
 use bunq\Model\Generated\Endpoint\UserPerson;
+use bunq\Http\Pagination;
 
 Class bunqApi {
 
@@ -93,9 +94,18 @@ Class Payments {
 	 *
 	 * @param $account_id
 	 */
-	public function all($account_id, $params = [], $customHeaders = [])
+	public function all($account_id, $amount = 25, $customHeaders = [])
 	{
-		return bunqPayment::listing($this->bunqApi->apiContext, $this->bunqApi->user->getId(), $account_id, $params, $customHeaders)->getValue();
+		$paginationCountOnly = new Pagination();
+		$paginationCountOnly->setCount($amount);
+
+		return bunqPayment::listing(
+			$this->bunqApi->apiContext,
+			$this->bunqApi->user->getId(),
+			$account_id,
+			$paginationCountOnly->getUrlParamsCountOnly(),
+			$customHeaders
+		)->getValue();
 	}
 
 	/**
